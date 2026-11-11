@@ -1,0 +1,77 @@
+# Entidades da casa: sensor virtual, atuadores, cenario do simulador e modo da casa.
+mqtt:
+  sensor:
+    - name: "Temperatura"
+      unique_id: casa_temperatura
+      state_topic: casa/sensor/temperatura
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      availability_topic: casa/sensor/status
+      expire_after: 60
+
+    - name: "Umidade"
+      unique_id: casa_umidade
+      state_topic: casa/sensor/umidade
+      unit_of_measurement: "%"
+      device_class: humidity
+      state_class: measurement
+      availability_topic: casa/sensor/status
+      expire_after: 60
+
+  binary_sensor:
+    - name: "Sensor conectado"
+      unique_id: casa_sensor_conectado
+      state_topic: casa/sensor/status
+      payload_on: "online"
+      payload_off: "offline"
+      device_class: connectivity
+
+  switch:
+    - name: "Ventilador"
+      unique_id: casa_ventilador
+      command_topic: casa/dispositivo/ventilador/set
+      state_topic: casa/dispositivo/ventilador/estado
+      payload_on: "ON"
+      payload_off: "OFF"
+      icon: mdi:fan
+
+    - name: "Lampada"
+      unique_id: casa_lampada
+      command_topic: casa/dispositivo/lampada/set
+      state_topic: casa/dispositivo/lampada/estado
+      payload_on: "ON"
+      payload_off: "OFF"
+      icon: mdi:lightbulb
+
+    - name: "Bomba"
+      unique_id: casa_bomba
+      command_topic: casa/dispositivo/bomba/set
+      state_topic: casa/dispositivo/bomba/estado
+      payload_on: "ON"
+      payload_off: "OFF"
+      icon: mdi:water-pump
+
+  # permite trocar o cenario do simulador pelo proprio dashboard
+  select:
+    - name: "Cenario do simulador"
+      unique_id: simulador_cenario
+      command_topic: simulador/cenario/set
+      state_topic: simulador/cenario/estado
+      options:
+        - normal
+        - onda_de_calor
+        - queda_de_umidade
+        - falha_de_sensor
+      icon: mdi:flask
+
+# desafio de criatividade: modos da casa
+input_select:
+  modo_casa:
+    name: Modo da casa
+    options:
+      - normal
+      - dormir
+      - ausente
+      - estufa
+    icon: mdi:home-switch

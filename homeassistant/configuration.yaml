@@ -1,0 +1,23 @@
+# Configuracao principal do Home Assistant.
+# A conexao com o broker MQTT e feita pela interface (Configuracoes > Integracoes),
+# porque o HA nao aceita mais o broker no YAML.
+
+default_config:
+
+homeassistant:
+  # cada arquivo em packages/ agrupa entidades e regras de um assunto
+  packages: !include_dir_named packages
+
+# dashboard em YAML para poder versionar e exportar junto com o repositorio
+lovelace:
+  dashboards:
+    casa-dashboard:
+      mode: yaml
+      title: Casa
+      icon: mdi:home-thermometer
+      show_in_sidebar: true
+      filename: dashboards/casa.yaml
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

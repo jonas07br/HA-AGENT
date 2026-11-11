@@ -1,0 +1,84 @@
+# Dashboard principal. Uma aba por contexto: visao geral, historico e simulacao.
+title: Casa
+views:
+  - title: Visão geral
+    path: geral
+    icon: mdi:home
+    cards:
+      - type: gauge
+        name: Temperatura
+        entity: sensor.temperatura
+        min: 10
+        max: 45
+        severity:
+          green: 10
+          yellow: 27
+          red: 30
+
+      - type: gauge
+        name: Umidade
+        entity: sensor.umidade
+        min: 0
+        max: 100
+        severity:
+          red: 0
+          yellow: 30
+          green: 40
+
+      - type: entities
+        title: Dispositivos
+        show_header_toggle: false
+        entities:
+          - switch.ventilador
+          - switch.lampada
+          - switch.bomba
+
+      - type: entities
+        title: Contexto
+        entities:
+          - input_select.modo_casa
+          - binary_sensor.sensor_conectado
+
+  - title: Histórico
+    path: historico
+    icon: mdi:chart-line
+    cards:
+      - type: history-graph
+        title: Últimas 3 horas
+        hours_to_show: 3
+        entities:
+          - sensor.temperatura
+          - sensor.umidade
+
+      - type: statistics-graph
+        title: Últimas 24 horas (média, mín. e máx.)
+        days_to_show: 1
+        chart_type: line
+        stat_types:
+          - mean
+          - min
+          - max
+        entities:
+          - sensor.temperatura
+          - sensor.umidade
+
+      - type: history-graph
+        title: Acionamentos
+        hours_to_show: 3
+        entities:
+          - switch.ventilador
+          - switch.lampada
+          - switch.bomba
+          - input_select.modo_casa
+
+  - title: Simulação
+    path: simulacao
+    icon: mdi:flask
+    cards:
+      - type: entities
+        title: Sensor virtual
+        entities:
+          - select.cenario_do_simulador
+          - binary_sensor.sensor_conectado
+          - sensor.temperatura
+          - sensor.umidade
