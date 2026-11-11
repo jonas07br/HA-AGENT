@@ -1,0 +1,25 @@
+## Controle de acesso por usuario do broker
+
+# Home Assistant: le e publica em tudo
+user homeassistant
+topic readwrite #
+
+# Sensor simulado: publica leituras e estado dos atuadores, recebe comandos e cenario
+user simulador
+topic write casa/sensor/#
+topic write casa/dispositivo/+/estado
+topic read casa/dispositivo/+/set
+topic read simulador/cenario/set
+topic write simulador/cenario/estado
+
+# Bot do WhatsApp: so faz a ponte entre bot/entrada e bot/saida
+user bot
+topic write bot/entrada
+topic read bot/saida
+
+# Agente LLM: recebe mensagens, responde e comanda apenas os dispositivos
+user agente
+topic read bot/entrada
+topic write bot/saida
+topic read casa/#
+topic write casa/dispositivo/+/set
