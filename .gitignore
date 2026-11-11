@@ -1,0 +1,35 @@
+# segredos e configuracao local
+.env
+*.pem
+*.key
+
+# sessao do WhatsApp (whatsapp-web.js)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# configuracao do Home Assistant: tokens, segredos e banco
+.storage/
+secrets.yaml
+home-assistant_v2.db*
+
+# ambientes e dependencias
+.venv/
+__pycache__/
+node_modules/
+
+# sistema
+.DS_Store
+
+# Mosquitto: senhas e dados persistidos
+mosquitto/config/passwd
+mosquitto/data/
+
+# Home Assistant: versiona so a configuracao escrita por nos;
+# o resto (tokens em .storage, banco, logs, secrets) e gerado pelo HA
+homeassistant/*
+!homeassistant/configuration.yaml
+!homeassistant/automations.yaml
+!homeassistant/scripts.yaml
+!homeassistant/scenes.yaml
+!homeassistant/packages/
+!homeassistant/dashboards/
